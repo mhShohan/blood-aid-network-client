@@ -23,20 +23,24 @@ const CustomDatePicker = ({
   sx,
 }: IDatePicker) => {
   const { control } = useFormContext();
+
   return (
     <Controller
       name={name}
       control={control}
-      defaultValue={dayjs(new Date('1990-01-01').toDateString())}
-      render={({ field: { onChange, value, ...field } }) => {
+      defaultValue={dayjs(new Date().toDateString())}
+      render={({ field: { onChange, value, ...field }, fieldState: { error } }) => {
         return (
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DesktopDatePicker
               label={label}
               timezone='system'
               {...field}
-              onChange={(date) => onChange(date)}
-              value={value || new Date('1990-01-01').toDateString()}
+              onChange={(date) => {
+                onChange(new Date(date as any));
+              }}
+              value={dayjs(new Date(value))}
+              inputRef={field.ref}
               slotProps={{
                 textField: {
                   required: required,
@@ -46,6 +50,8 @@ const CustomDatePicker = ({
                   },
                   variant: 'outlined',
                   fullWidth: fullWidth,
+                  error: !!error?.message,
+                  helperText: error?.message,
                 },
               }}
             />

@@ -5,6 +5,7 @@ import CustomInput from '@/components/shared/CustomInput';
 import CustomSelectField from '@/components/shared/CustomSelect';
 import CustomDatePicker from '@/components/shared/CutomDatePicker';
 import { bloodGroup } from '@/constant';
+import dateFormatter from '@/utils/dateFormatter';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import Link from 'next/link';
@@ -17,12 +18,15 @@ const registerSchema = z.object({
   password: z.string().min(6, { message: 'Password must contain at least 6 characters' }),
   bloodType: z.string().min(1, { message: 'Blood Type is required' }),
   location: z.string().min(1, { message: 'Location is required' }),
-  dateOfBirth: z.string({ message: 'Provide a valid date' }),
-  lastDonationDate: z.string({ message: 'Provide a valid date' }),
+  dateOfBirth: z.date({ message: 'Provide a valid date Of Birth' }),
+  lastDonationDate: z.date({ message: 'Provide a valid  last Donation Date' }),
 });
 
 const RegisterForm = () => {
   const handleLogin = (data: any) => {
+    data.dateOfBirth = dateFormatter.dateToString(data.dateOfBirth);
+    data.lastDonationDate = dateFormatter.dateToString(data.lastDonationDate);
+
     console.log(data);
   };
 
@@ -53,8 +57,8 @@ const RegisterForm = () => {
           password: '',
           bloodType: '',
           location: '',
-          dateOfBirth: Date.now(),
-          lastDonationDate: Date.now(),
+          dateOfBirth: '',
+          lastDonationDate: '',
         }}
         resolver={zodResolver(registerSchema)}
       >
@@ -78,10 +82,10 @@ const RegisterForm = () => {
             <CustomInput name='location' label='Location' />
           </Grid>
           <Grid item xs={12} md={6} p={0.5}>
-            <CustomInput type='date' name='dateOfBirth' label='Date Of Birth' />
+            <CustomDatePicker name='dateOfBirth' label='Date Of Birth' />
           </Grid>
           <Grid item xs={12} md={6} p={0.5}>
-            <CustomInput type='date' name='lastDonationDate' label='Last Donation Date' />
+            <CustomDatePicker name='lastDonationDate' label='Last Donation Date' />
           </Grid>
         </Grid>
         <Box py={1} display='flex' justifyContent='center'>
