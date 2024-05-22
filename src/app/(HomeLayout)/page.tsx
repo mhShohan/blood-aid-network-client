@@ -1,7 +1,11 @@
 import DemoFrom from '@/components/UI/DemoFrom';
 
 const Homepage = () => {
-  return <DemoFrom />;
+  return (
+    <>
+      <DemoFrom />
+    </>
+  );
 };
 
 export default Homepage;

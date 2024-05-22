@@ -1,23 +1,20 @@
 'use client';
 
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
+import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
+import Container from '@mui/material/Container';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Stack } from '@mui/material';
+import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
 import Logo from '../UI/Logo';
+import Link from 'next/link';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -43,7 +40,7 @@ const Header = () => {
 
   return (
     <AppBar
-      position='static'
+      position='fixed'
       sx={{
         backgroundColor: 'primary.main',
         color: 'white',
@@ -85,21 +82,48 @@ const Header = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign='center'>{page}</Typography>
+                  <Typography
+                    component={Link}
+                    href={`/${page.toLowerCase()}`}
+                    sx={{
+                      textDecoration: 'none',
+                      fontSize: '1.2rem',
+                      fontWeight: '500',
+                    }}
+                  >
+                    {page}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
             <Logo mobile={true} />
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'none', md: 'flex' },
+              justifyContent: 'center',
+              gap: '2rem',
+            }}
+          >
             {pages.map((page) => (
-              <Button
+              <Typography
                 key={page}
+                component={Link}
+                href={`/${page.toLowerCase()}`}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{
+                  my: 2,
+                  color: 'white',
+                  display: 'block',
+                  textDecoration: 'none',
+                  fontSize: '1.2rem',
+                  fontWeight: '500',
+                }}
               >
                 {page}
-              </Button>
+              </Typography>
             ))}
           </Box>
 
@@ -127,7 +151,17 @@ const Header = () => {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign='center'>{setting}</Typography>
+                  <Typography
+                    component={Link}
+                    href={`/${setting.toLowerCase()}`}
+                    sx={{
+                      textDecoration: 'none',
+                      fontSize: '1.2rem',
+                      fontWeight: '500',
+                    }}
+                  >
+                    {setting}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>

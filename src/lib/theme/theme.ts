@@ -16,7 +16,7 @@ const theme = createTheme({
       },
       styleOverrides: {
         root: {
-          padding: '5px 30px'
+          padding: '.5rem 3rem'
         }
       },
     },

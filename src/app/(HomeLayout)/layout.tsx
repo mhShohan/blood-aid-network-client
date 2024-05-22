@@ -6,7 +6,7 @@ export default function HomeLayout({ children }: { children: React.ReactNode }) 
     <>
       <CssBaseline />
       <Header />
-      {children}
+      <main>{children}</main>
     </>
   );
 }
