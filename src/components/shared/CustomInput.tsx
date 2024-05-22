@@ -17,7 +17,7 @@ const CustomInput = ({
   label,
   type = 'text',
   size = 'small',
-  fullWidth,
+  fullWidth = true,
   sx,
   required,
 }: TInputProps) => {
