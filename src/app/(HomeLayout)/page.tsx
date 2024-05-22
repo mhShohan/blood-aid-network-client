@@ -1,9 +1,13 @@
-import DemoFrom from '@/components/UI/DemoFrom';
+import AboutSection from '@/components/containers/homepage/AbooutSection';
+import HeroSection from '@/components/containers/homepage/HeroSection';
+import { CssBaseline } from '@mui/material';
 
 const Homepage = () => {
   return (
     <>
-      <DemoFrom />
+      <CssBaseline />
+      <HeroSection />
+      <AboutSection />
     </>
   );
 };

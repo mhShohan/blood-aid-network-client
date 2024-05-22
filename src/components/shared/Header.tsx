@@ -115,11 +115,11 @@ const Header = () => {
                 onClick={handleCloseNavMenu}
                 sx={{
                   my: 2,
-                  color: 'white',
-                  display: 'block',
+                  color: 'primary.light',
                   textDecoration: 'none',
-                  fontSize: '1.2rem',
-                  fontWeight: '500',
+                  fontSize: '1rem',
+                  textTransform: 'uppercase',
+                  fontWeight: '600',
                 }}
               >
                 {page}
