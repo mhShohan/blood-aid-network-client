@@ -3,6 +3,8 @@
 import CustomForm from '@/components/shared/CustomForm';
 import CustomInput from '@/components/shared/CustomInput';
 import { login } from '@/services/actions/login';
+import { setLoggedInUser } from '@/store/authSlice';
+import { useAppDispatch } from '@/store/hooks';
 import storage from '@/utils/storage';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, CircularProgress, Stack, Typography } from '@mui/material';
@@ -18,6 +20,7 @@ const loginSchema = z.object({
 
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useAppDispatch();
 
   const handleLogin = async (data: any) => {
     try {
@@ -27,6 +30,7 @@ const LoginForm = () => {
       if (res?.success) {
         toast.success('Login Successful');
         storage.setToken(res.data.token);
+        dispatch(setLoggedInUser(res.data.token));
         window.location.href = '/';
       } else {
         toast.error('Wrong Credentials!');

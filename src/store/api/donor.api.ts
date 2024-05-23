@@ -11,7 +11,16 @@ const donorApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.donor],
     }),
+
+    getMyProfile: builder.query({
+      query: (query) => ({
+        url: "/my-profile",
+        method: "GET",
+        params: query,
+      }),
+      providesTags: [tagTypes.user],
+    }),
   }),
 });
 
-export const { useGetAllDonorsQuery } = donorApi;
+export const { useGetAllDonorsQuery, useGetMyProfileQuery } = donorApi;

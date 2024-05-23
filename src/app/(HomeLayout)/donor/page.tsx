@@ -1,7 +1,7 @@
 'use client';
 
 import SingleDonor from '@/components/shared/SingleDonor';
-import DonorSkeleton from '@/components/shared/sidebar/skeletons/DonorSkeleton';
+import DonorSkeleton from '@/components/shared/skeletons/DonorSkeleton';
 import { bloodGroup } from '@/constant';
 import { useGetAllDonorsQuery } from '@/store/api/donor.api';
 import { IUser } from '@/types';
