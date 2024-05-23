@@ -5,10 +5,15 @@ import CustomInput from '@/components/shared/CustomInput';
 import CustomSelectField from '@/components/shared/CustomSelect';
 import CustomDatePicker from '@/components/shared/CutomDatePicker';
 import { bloodGroup } from '@/constant';
+import { register } from '@/services/actions/register';
 import dateFormatter from '@/utils/dateFormatter';
+import storage from '@/utils/storage';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Box, Button, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Grid, Stack, Typography } from '@mui/material';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { toast } from 'sonner';
 import { z } from 'zod';
 
 const registerSchema = z.object({
@@ -23,11 +28,29 @@ const registerSchema = z.object({
 });
 
 const RegisterForm = () => {
-  const handleLogin = (data: any) => {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLogin = async (data: any) => {
     data.dateOfBirth = dateFormatter.dateToString(data.dateOfBirth);
     data.lastDonationDate = dateFormatter.dateToString(data.lastDonationDate);
 
-    console.log(data);
+    try {
+      setIsLoading(true);
+      const res = await register(data);
+
+      if (res?.success) {
+        toast.success('Register new account Successfully');
+        storage.setToken(res.data.token);
+        router.push('/');
+      } else {
+        toast.error(res.message);
+      }
+    } catch (error) {
+      toast.error('Failed to Register!');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -89,7 +112,19 @@ const RegisterForm = () => {
           </Grid>
         </Grid>
         <Box py={1} display='flex' justifyContent='center'>
-          <Button type='submit'>Register</Button>
+          <Button type='submit'>
+            {isLoading ? (
+              <CircularProgress
+                color='warning'
+                sx={{
+                  width: '25px !important',
+                  height: '25px !important',
+                }}
+              />
+            ) : (
+              'Register'
+            )}
+          </Button>
         </Box>
       </CustomForm>
 

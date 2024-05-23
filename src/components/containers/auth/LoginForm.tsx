@@ -2,19 +2,42 @@
 
 import CustomForm from '@/components/shared/CustomForm';
 import CustomInput from '@/components/shared/CustomInput';
+import { login } from '@/services/actions/login';
+import storage from '@/utils/storage';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Stack, Typography } from '@mui/material';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { toast } from 'sonner';
 import { z } from 'zod';
 
 const loginSchema = z.object({
-  usernameOrEmail: z.string().email({ message: 'Provide a valid email' }),
+  usernameOrEmail: z.string().min(1, { message: 'Provide username or email' }),
   password: z.string().min(6, { message: 'Password must contain at least 6 characters' }),
 });
 
 const LoginForm = () => {
-  const handleLogin = (data: any) => {
-    console.log(data);
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLogin = async (data: any) => {
+    try {
+      setIsLoading(true);
+      const res = await login(data);
+
+      if (res?.success) {
+        toast.success('Login Successful');
+        storage.setToken(res.data.token);
+        router.push('/');
+      } else {
+        toast.error('Wrong Credentials!');
+      }
+    } catch (error) {
+      toast.error('Failed to login!');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -37,13 +60,25 @@ const LoginForm = () => {
       </Typography>
       <CustomForm
         onSubmit={handleLogin}
-        defaultValues={{ usernameOrEmail: '', password: '' }}
+        defaultValues={{ usernameOrEmail: 'user', password: 'pass123' }}
         resolver={zodResolver(loginSchema)}
       >
         <Stack direction='column' gap={1}>
-          <CustomInput name='usernameOrEmail' label='Username or Email' type='email' />
+          <CustomInput name='usernameOrEmail' label='Username or Email' />
           <CustomInput name='password' label='Password' type='password' />
-          <Button type='submit'>Login</Button>
+          <Button type='submit'>
+            {isLoading ? (
+              <CircularProgress
+                color='warning'
+                sx={{
+                  width: '25px !important',
+                  height: '25px !important',
+                }}
+              />
+            ) : (
+              'Login'
+            )}
+          </Button>
         </Stack>
       </CustomForm>
       <Box style={{ textAlign: 'center', marginTop: '10px' }}>
