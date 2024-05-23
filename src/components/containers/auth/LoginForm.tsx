@@ -7,7 +7,6 @@ import storage from '@/utils/storage';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, CircularProgress, Stack, Typography } from '@mui/material';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -18,7 +17,6 @@ const loginSchema = z.object({
 });
 
 const LoginForm = () => {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async (data: any) => {
@@ -29,7 +27,7 @@ const LoginForm = () => {
       if (res?.success) {
         toast.success('Login Successful');
         storage.setToken(res.data.token);
-        router.push('/');
+        window.location.href = '/';
       } else {
         toast.error('Wrong Credentials!');
       }

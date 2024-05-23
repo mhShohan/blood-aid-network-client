@@ -1,5 +1,6 @@
 import AboutSection from '@/components/containers/homepage/AbooutSection';
 import HeroSection from '@/components/containers/homepage/HeroSection';
+import SearchBloodDonor from '@/components/containers/homepage/SearchBloodDonor';
 import { CssBaseline } from '@mui/material';
 
 const Homepage = () => {
@@ -8,6 +9,7 @@ const Homepage = () => {
       <CssBaseline />
       <HeroSection />
       <AboutSection />
+      <SearchBloodDonor />
     </>
   );
 };

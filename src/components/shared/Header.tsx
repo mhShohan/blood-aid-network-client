@@ -1,5 +1,8 @@
 'use client';
 
+import { IUser } from '@/types';
+import { config } from '@/utils/config';
+import storage from '@/utils/storage';
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
@@ -12,15 +15,18 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import * as React from 'react';
 import Logo from '../UI/Logo';
-import { usePathname } from 'next/navigation';
+import PersonIcon from '@mui/icons-material/Person';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ['Donor', 'About Us'];
+const settings = ['Dashboard', 'Logout'];
 
 const Header = () => {
-  const token = false;
+  const token = storage.getToken();
+  const [user, setUser] = React.useState<IUser | null>(null);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -40,6 +46,34 @@ const Header = () => {
     setAnchorElUser(null);
   };
 
+  const handleLogout = () => {
+    storage.removeToken();
+    setAnchorElUser(null);
+    handleCloseUserMenu();
+    window.location.href = '/';
+  };
+
+  React.useEffect(() => {
+    (async () => {
+      setIsLoading(true);
+      const res = await fetch(`${config.baseUrl}/my-profile`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${token}`,
+        },
+        cache: 'no-store',
+      });
+      const result = await res.json();
+      if (result.success) {
+        setUser(result.data);
+      } else {
+        storage.removeToken();
+      }
+      setIsLoading(false);
+    })();
+  }, [token]);
+
   return (
     <AppBar
       position='fixed'
@@ -49,7 +83,7 @@ const Header = () => {
         boxShadow: 0,
       }}
     >
-      <Container maxWidth='xl'>
+      <Container maxWidth='lg'>
         <Toolbar disableGutters>
           <Logo />
 
@@ -112,11 +146,15 @@ const Header = () => {
             ))}
           </Box>
 
-          {token ? (
+          {user ? (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title='Open settings'>
+              <Tooltip title={user?.name}>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' />
+                  {user?.userProfile.profilePicture ? (
+                    <Avatar alt={user?.name} src={user?.userProfile.profilePicture} />
+                  ) : (
+                    <Avatar component={PersonIcon} />
+                  )}
                 </IconButton>
               </Tooltip>
               <Menu
@@ -136,19 +174,35 @@ const Header = () => {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography
-                      component={Link}
-                      href={`/${setting.toLowerCase()}`}
-                      sx={{
-                        textDecoration: 'none',
-                        fontSize: '1.2rem',
-                        fontWeight: '500',
-                      }}
-                    >
-                      {setting}
-                    </Typography>
-                  </MenuItem>
+                  <>
+                    {setting === 'Logout' ? (
+                      <MenuItem key={setting} onClick={handleLogout}>
+                        <Typography
+                          sx={{
+                            textDecoration: 'none',
+                            fontSize: '1.2rem',
+                            fontWeight: '500',
+                          }}
+                        >
+                          {setting}
+                        </Typography>
+                      </MenuItem>
+                    ) : (
+                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                        <Typography
+                          component={Link}
+                          href={`/${setting.toLowerCase()}`}
+                          sx={{
+                            textDecoration: 'none',
+                            fontSize: '1.2rem',
+                            fontWeight: '500',
+                          }}
+                        >
+                          {setting}
+                        </Typography>
+                      </MenuItem>
+                    )}
+                  </>
                 ))}
               </Menu>
             </Box>

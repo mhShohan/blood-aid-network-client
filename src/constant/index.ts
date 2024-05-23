@@ -8,3 +8,16 @@ export const bloodGroup = [
   { name: 'AB+', value: 'AB_POSITIVE' },
   { name: 'AB-', value: 'AB_NEGATIVE' },
 ]
+
+export const blood = {
+  A_POSITIVE: 'A+',
+  A_NEGATIVE: 'A-',
+  B_POSITIVE: 'B+',
+  B_NEGATIVE: 'B-',
+  O_POSITIVE: 'O+',
+  O_NEGATIVE: 'O-',
+  AB_POSITIVE: 'AB+',
+  AB_NEGATIVE: 'AB-',
+}
+
+export type TBlood = keyof typeof blood;
