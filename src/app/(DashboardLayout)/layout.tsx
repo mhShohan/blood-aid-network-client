@@ -1,8 +1,7 @@
+'use client';
+
+import Sidebar from '@/components/shared/sidebar/Sidebar';
+
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <p>DashboardLayout</p>
-      {children}
-    </>
-  );
+  return <Sidebar>{children}</Sidebar>;
 }
