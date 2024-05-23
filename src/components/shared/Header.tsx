@@ -20,7 +20,7 @@ import * as React from 'react';
 import Logo from '../UI/Logo';
 import PersonIcon from '@mui/icons-material/Person';
 
-const pages = ['Donor', 'About Us'];
+const pages = ['Donor', 'About'];
 const settings = ['Dashboard', 'Logout'];
 
 const Header = () => {
