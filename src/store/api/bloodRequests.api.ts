@@ -12,6 +12,15 @@ const bloodRequestsApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.request],
     }),
 
+    sendBloodRequestToDonor: builder.mutation({
+      query: ({ id, payload }) => ({
+        url: "/blood-requests/" + id,
+        method: "POST",
+        body: payload,
+      }),
+      invalidatesTags: [tagTypes.request],
+    }),
+
     getAllBloodRequest: builder.query({
       query: (query) => ({
         url: "/blood-requests",
@@ -27,5 +36,6 @@ const bloodRequestsApi = baseApi.injectEndpoints({
 
 export const {
   useCreateBloodRequestMutation,
+  useSendBloodRequestToDonorMutation,
   useGetAllBloodRequestQuery
 } = bloodRequestsApi;

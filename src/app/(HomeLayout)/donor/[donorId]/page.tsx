@@ -5,6 +5,7 @@ import { config } from '@/utils/config';
 import { IUser } from '@/types';
 import { TBlood, blood } from '@/constant';
 import dateFormatter from '@/utils/dateFormatter';
+import Contact from './Contact';
 
 const DonorDetailsPage = async ({ params }: { params: { donorId: string } }) => {
   const res = await fetch(`${config.baseUrl}/donor-list/${params.donorId}`, {
@@ -53,13 +54,21 @@ const DonorDetailsPage = async ({ params }: { params: { donorId: string } }) => 
                   variant='filled'
                   sx={{ padding: '0.5rem 2rem' }}
                 />
-                <Button sx={{ padding: '0 2rem' }} disabled={!donor.availability}>
-                  Request To Donate
-                </Button>
               </Box>
             </Stack>
           </Grid>
         </Grid>
+      </Stack>
+
+      <Stack py={2} pb={5}>
+        <Container maxWidth='xs'>
+          <Stack boxShadow={24} p={3}>
+            <Typography variant='h5' fontWeight={700} mb={2} textAlign='center'>
+              Contact With donor
+            </Typography>
+            <Contact donorId={params.donorId} />
+          </Stack>
+        </Container>
       </Stack>
     </Container>
   );

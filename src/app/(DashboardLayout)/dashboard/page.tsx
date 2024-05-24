@@ -85,10 +85,10 @@ const DashboardPage = () => {
 
   const rows = data?.data.map((row: any) => ({
     id: row.id,
-    name: row.requester.name,
-    bloodType: blood[row.bloodType as TBlood],
-    numberOfBag: row.numberOfBag,
-    requestStatus: row.requestStatus,
+    name: row.requester?.name,
+    bloodType: blood[row?.bloodType as TBlood],
+    numberOfBag: row?.numberOfBag,
+    requestStatus: row?.requestStatus,
   }));
 
   return (

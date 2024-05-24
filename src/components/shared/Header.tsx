@@ -22,7 +22,7 @@ import Typography from '@mui/material/Typography';
 
 // project imports
 import { logout } from '@/services/actions/logout';
-import { logoutUser } from '@/store/authSlice';
+import { logoutUser, setLoggedInUser } from '@/store/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { IUser } from '@/types';
 import Logo from '../UI/Logo';
@@ -68,6 +68,14 @@ const Header = () => {
     dispatch(logoutUser());
     window.location.href = '/';
   };
+
+  React.useEffect(() => {
+    const token = storage.getToken();
+
+    if (token) {
+      dispatch(setLoggedInUser(token));
+    }
+  }, []);
 
   React.useEffect(() => {
     (async () => {
