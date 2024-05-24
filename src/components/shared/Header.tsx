@@ -56,7 +56,7 @@ const Header = () => {
   React.useEffect(() => {
     (async () => {
       setIsLoading(true);
-      const res = await fetch(`${config.baseUrl}/my-profile`, {
+      const res = await fetch(`${config.baseUrl}/profile/self`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
