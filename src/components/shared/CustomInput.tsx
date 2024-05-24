@@ -19,6 +19,7 @@ const CustomInput = ({
   size = 'small',
   fullWidth = true,
   sx,
+  placeholder,
   required,
 }: TInputProps) => {
   const { control } = useFormContext();
@@ -36,8 +37,10 @@ const CustomInput = ({
           variant='outlined'
           size={size}
           fullWidth={fullWidth}
-          placeholder={label}
+          placeholder={placeholder || label}
           required={required}
+          multiline={type === 'textarea'}
+          minRows={type === 'textarea' ? 4 : undefined}
           error={!!error?.message}
           helperText={error?.message}
         />

@@ -1,6 +1,7 @@
 export const tagTypes = {
   user: 'user',
   donor: 'donor',
+  request: 'request',
 }
 
 

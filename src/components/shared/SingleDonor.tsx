@@ -11,9 +11,9 @@ const SingleDonor = ({ donor }: { donor: IUser }) => {
       <Link href={`/donor/${donor.id}`} style={{ color: 'initial', textDecoration: 'none' }}>
         <Stack
           sx={{
-            border: '1px solid #aaa',
             padding: '1.5rem',
             borderRadius: '8px',
+            boxShadow: 10,
           }}
         >
           <Box>

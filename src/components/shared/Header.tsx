@@ -20,7 +20,7 @@ import * as React from 'react';
 import Logo from '../UI/Logo';
 import PersonIcon from '@mui/icons-material/Person';
 
-const pages = ['Donor', 'About'];
+const pages = ['Donor', 'All Blood Requests', 'Request Blood', 'About Us'];
 const settings = ['Dashboard', 'Logout'];
 
 const Header = () => {
@@ -119,7 +119,7 @@ const Header = () => {
               {pages.map((page) => (
                 <LinkTypography
                   key={page}
-                  href={`/${page.toLowerCase()}`}
+                  href={`/${page.toLowerCase().split(' ').join('-')}`}
                   text={page}
                   onClick={handleCloseNavMenu}
                   mobile={true}
@@ -139,7 +139,7 @@ const Header = () => {
             {pages.map((page) => (
               <LinkTypography
                 key={page}
-                href={`/${page.toLowerCase()}`}
+                href={`/${page.toLowerCase().split(' ').join('-')}`}
                 text={page}
                 onClick={handleCloseNavMenu}
               />
@@ -238,14 +238,13 @@ const LinkTypography = ({
       href={href}
       onClick={onClick}
       sx={{
-        px: !mobile ? 2 : 0,
-        py: 1,
+        p: 1,
         display: 'block',
         color: !mobile ? 'primary.light' : 'primary.main',
         ...(pathname === href && { color: '#f44669' }),
         textDecoration: 'none',
         fontSize: '1rem',
-        textTransform: 'uppercase',
+        textTransform: 'capitalize',
         fontWeight: '600',
         transition: 'all 0.2s',
         '&:hover': {
