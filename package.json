@@ -16,6 +16,7 @@
     "@mui/icons-material": "^5.15.18",
     "@mui/material": "^5.15.16",
     "@mui/material-nextjs": "^5.15.11",
+    "@mui/x-data-grid": "^6.20.0",
     "@mui/x-date-pickers": "^7.5.0",
     "@reduxjs/toolkit": "^2.2.4",
     "dayjs": "^1.11.11",

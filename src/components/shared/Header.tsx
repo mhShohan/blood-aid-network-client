@@ -1,9 +1,14 @@
 'use client';
 
-import { IUser } from '@/types';
 import { config } from '@/utils/config';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import * as React from 'react';
+
+// mui
 import storage from '@/utils/storage';
 import MenuIcon from '@mui/icons-material/Menu';
+import PersonIcon from '@mui/icons-material/Person';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -14,16 +19,15 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import * as React from 'react';
-import Logo from '../UI/Logo';
-import PersonIcon from '@mui/icons-material/Person';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { logoutUser } from '@/store/authSlice';
-import { logout } from '@/services/actions/logout';
 
-const pages = ['Donor', 'All Blood Requests', 'Request Blood', 'About Us'];
+// project imports
+import { logout } from '@/services/actions/logout';
+import { logoutUser } from '@/store/authSlice';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { IUser } from '@/types';
+import Logo from '../UI/Logo';
+
+const navPages = ['Donor', 'All Blood Requests', 'About Us'];
 const settings = ['Dashboard', 'Logout'];
 
 const Header = () => {
@@ -31,7 +35,12 @@ const Header = () => {
   const token = useAppSelector((state) => state.auth.token);
   const [user, setUser] = React.useState<IUser | null>(null);
   const [isLoading, setIsLoading] = React.useState(true);
-  const router = useRouter();
+
+  let pages = [...navPages];
+
+  if (user) {
+    pages = ['Donor', 'All Blood Requests', 'Request Blood', 'About Us'];
+  }
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
