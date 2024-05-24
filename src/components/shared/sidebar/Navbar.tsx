@@ -1,14 +1,31 @@
-import { AppBar, Box, Button, IconButton, Toolbar, Typography } from '@mui/material';
+import bloodIcon from '@/assets/blood-icon.png';
+import { logout } from '@/services/actions/logout';
+import { logoutUser } from '@/store/authSlice';
+import { useAppDispatch } from '@/store/hooks';
+import storage from '@/utils/storage';
 import MenuIcon from '@mui/icons-material/Menu';
-import { MouseEventHandler } from 'react';
-import Logo from '@/components/UI/Logo';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import { AppBar, Box, Button, IconButton, Stack, Toolbar, Typography } from '@mui/material';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { MouseEventHandler } from 'react';
 
-const Navbar = ({
-  handleDrawerToggle,
-}: {
+interface NavbarProps {
   handleDrawerToggle: MouseEventHandler<HTMLButtonElement>;
-}) => {
+}
+
+const Navbar = ({ handleDrawerToggle }: NavbarProps) => {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await logout();
+    storage.removeToken();
+    dispatch(logoutUser());
+    router.push('/');
+  };
+
   return (
     <AppBar
       position='fixed'
@@ -27,12 +44,35 @@ const Navbar = ({
 
         {/* Top bar content */}
         <Box display='flex' justifyContent='space-between' alignItems='center' width='100%'>
-          <Logo />
+          <Stack
+            direction='row'
+            component={Link}
+            alignItems='center'
+            href='/'
+            sx={{
+              mr: 2,
+              display: 'flex',
+              fontWeight: 700,
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            <Image src={bloodIcon} alt='Blood Icon' width={50} height={50} />
+            <Typography variant='h5' noWrap fontWeight='800'>
+              <span style={{ color: '#f8345b' }}>Blood</span>
+              <span style={{ color: '#AEFEFF' }}>Aid</span>
+              <span style={{ color: '#D8E3E7' }}>Network</span>
+            </Typography>
+          </Stack>
           <Button
+            onClick={handleLogout}
             color='info'
             sx={{ padding: '.4rem 1.5rem', display: 'flex', gap: '4px', alignItems: 'center' }}
           >
-            Logout <PowerSettingsNewIcon />
+            <Box component='span' sx={{ display: { xs: 'none', md: 'flex' } }}>
+              Logout
+            </Box>
+            <PowerSettingsNewIcon />
           </Button>
         </Box>
       </Toolbar>

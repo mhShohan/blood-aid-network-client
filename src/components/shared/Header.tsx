@@ -15,18 +15,23 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import * as React from 'react';
 import Logo from '../UI/Logo';
 import PersonIcon from '@mui/icons-material/Person';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { logoutUser } from '@/store/authSlice';
+import { logout } from '@/services/actions/logout';
 
 const pages = ['Donor', 'All Blood Requests', 'Request Blood', 'About Us'];
 const settings = ['Dashboard', 'Logout'];
 
 const Header = () => {
-  const token = storage.getToken();
+  const dispatch = useAppDispatch();
+  const token = useAppSelector((state) => state.auth.token);
   const [user, setUser] = React.useState<IUser | null>(null);
   const [isLoading, setIsLoading] = React.useState(true);
+  const router = useRouter();
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -46,10 +51,12 @@ const Header = () => {
     setAnchorElUser(null);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await logout();
     storage.removeToken();
     setAnchorElUser(null);
     handleCloseUserMenu();
+    dispatch(logoutUser());
     window.location.href = '/';
   };
 
@@ -60,7 +67,7 @@ const Header = () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `${token}`,
+          Authorization: storage.getToken() as string,
         },
         cache: 'no-store',
       });

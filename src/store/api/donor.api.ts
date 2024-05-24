@@ -9,7 +9,7 @@ const donorApi = baseApi.injectEndpoints({
         method: "GET",
         params: query,
       }),
-      providesTags: [tagTypes.donor],
+      providesTags: [tagTypes.donor, tagTypes.request, tagTypes.donor],
     }),
 
     getMyProfile: builder.query({
@@ -27,7 +27,7 @@ const donorApi = baseApi.injectEndpoints({
         method: "PATCH",
         body: payload,
       }),
-      invalidatesTags: [tagTypes.user],
+      invalidatesTags: [tagTypes.user, tagTypes.request, tagTypes.donor],
     }),
 
     changePassword: builder.mutation({

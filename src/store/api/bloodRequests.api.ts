@@ -12,8 +12,20 @@ const bloodRequestsApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.request],
     }),
 
+    getAllBloodRequest: builder.query({
+      query: (query) => ({
+        url: "/blood-requests",
+        method: "GET",
+        params: query,
+      }),
+      providesTags: [tagTypes.request],
+    }),
+
 
   }),
 });
 
-export const { useCreateBloodRequestMutation } = bloodRequestsApi;
+export const {
+  useCreateBloodRequestMutation,
+  useGetAllBloodRequestQuery
+} = bloodRequestsApi;

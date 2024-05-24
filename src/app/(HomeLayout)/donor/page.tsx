@@ -5,14 +5,24 @@ import DonorSkeleton from '@/components/shared/skeletons/DonorSkeleton';
 import { bloodGroup } from '@/constant';
 import { useGetAllDonorsQuery } from '@/store/api/donor.api';
 import { IUser } from '@/types';
-import { Button, Container, Grid, MenuItem, Stack, TextField, Typography } from '@mui/material';
+import {
+  Button,
+  Container,
+  Grid,
+  MenuItem,
+  Pagination,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { useState } from 'react';
 
 const initState = {
   bloodType: '',
   location: '',
   availability: '',
-  limit: 10,
+  limit: 12,
+  page: 1,
 };
 
 const DonorPage = () => {
@@ -120,7 +130,15 @@ const DonorPage = () => {
         )}
 
         {/* Pagination */}
-        <Stack direction='row' my={3} justifyContent='center'></Stack>
+        <Stack spacing={2} direction='row' py={4} justifyContent='center' width='100%'>
+          <Pagination
+            variant='outlined'
+            shape='rounded'
+            count={data?.meta?.totalPage}
+            page={query.page}
+            onChange={(_event, value) => setQuery((prev) => ({ ...prev, limit: value }))}
+          />
+        </Stack>
       </Container>
     </Stack>
   );

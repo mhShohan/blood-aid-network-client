@@ -6,6 +6,8 @@ import CustomSelectField from '@/components/shared/CustomSelect';
 import CustomDatePicker from '@/components/shared/CutomDatePicker';
 import { bloodGroup } from '@/constant';
 import { register } from '@/services/actions/register';
+import { setLoggedInUser } from '@/store/authSlice';
+import { useAppDispatch } from '@/store/hooks';
 import dateFormatter from '@/utils/dateFormatter';
 import storage from '@/utils/storage';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -28,6 +30,7 @@ const registerSchema = z.object({
 });
 
 const RegisterForm = () => {
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -42,6 +45,7 @@ const RegisterForm = () => {
       if (res?.success) {
         toast.success('Register new account Successfully');
         storage.setToken(res.data.token);
+        dispatch(setLoggedInUser(res.data.token));
         router.push('/');
       } else {
         toast.error(res.message);

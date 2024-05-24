@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { JwtPayload, jwtDecode } from 'jwt-decode';
+import { RootState } from './'
 
 interface InitialState {
   user: null | IUser;
@@ -38,3 +39,6 @@ const authSlice = createSlice({
 
 export const { setLoggedInUser, logoutUser } = authSlice.actions;
 export default authSlice.reducer;
+
+export const getCurrentUser = (state: RootState) => state.auth.user;
+export const getCurrentToken = (state: RootState) => state.auth.token;
