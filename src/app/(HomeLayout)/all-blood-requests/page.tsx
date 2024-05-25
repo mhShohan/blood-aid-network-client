@@ -33,8 +33,6 @@ const AllBloodRequests = () => {
     setQuery(initState);
   };
 
-  console.log(data);
-
   return (
     <Stack py={2}>
       <Container maxWidth='lg'>

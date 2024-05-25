@@ -9,7 +9,7 @@ const donorApi = baseApi.injectEndpoints({
         method: "GET",
         params: query,
       }),
-      providesTags: [tagTypes.donor, tagTypes.request, tagTypes.donor],
+      providesTags: [tagTypes.donor, tagTypes.request],
     }),
 
     getMyProfile: builder.query({
@@ -26,7 +26,7 @@ const donorApi = baseApi.injectEndpoints({
         url: "/donation-request",
         method: "GET",
       }),
-      providesTags: [tagTypes.user],
+      providesTags: [tagTypes.user, tagTypes.request, tagTypes.donor],
     }),
 
     getDonateHistory: builder.query({
@@ -34,7 +34,7 @@ const donorApi = baseApi.injectEndpoints({
         url: "/donation-history",
         method: "GET",
       }),
-      providesTags: [tagTypes.user],
+      providesTags: [tagTypes.user, tagTypes.request, tagTypes.donor],
     }),
 
     updateMyProfile: builder.mutation({

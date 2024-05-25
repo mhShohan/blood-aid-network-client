@@ -1,11 +1,12 @@
 'use client';
 
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
-import { styled } from '@mui/material/styles';
-import { useGetMyBloodRequestsQuery } from '@/store/api/donor.api';
 import { TBlood, blood } from '@/constant';
+import { useUpdateMyBloodRequestStatusMutation } from '@/store/api/bloodRequests.api';
+import { useGetMyBloodRequestsQuery } from '@/store/api/donor.api';
+import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 
 const StyledGridOverlay = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -73,15 +74,61 @@ function CustomNoRowsOverlay() {
   );
 }
 
-const columns = [
-  { field: 'name', headerName: 'Name', flex: 1 },
-  { field: 'bloodType', headerName: 'Blood Group', flex: 1 },
-  { field: 'numberOfBag', headerName: 'Number Of Bag', flex: 1 },
-  { field: 'requestStatus', headerName: 'Status', flex: 1 },
+const columns: GridColDef[] = [
+  { field: 'name', headerName: 'Requester Name', headerAlign: 'left', align: 'left', flex: 1 },
+  {
+    field: 'bloodType',
+    headerName: 'Blood Group',
+    headerAlign: 'center',
+    align: 'center',
+    flex: 1,
+  },
+  {
+    field: 'numberOfBag',
+    headerName: 'Number Of Bag',
+    headerAlign: 'center',
+    align: 'center',
+    flex: 1,
+  },
+  {
+    field: 'requestStatus',
+    headerName: 'Status',
+    headerAlign: 'center',
+    align: 'center',
+    flex: 1,
+    renderCell: (params: GridRenderCellParams<any, Date>) => {
+      const handleChange = async (event: SelectChangeEvent) => {
+        await params.row.handleUpdateStatus(params.row.id, event.target.value);
+      };
+
+      return (
+        <Select
+          labelId='demo-simple-select-label'
+          id='demo-simple-select'
+          size='small'
+          value={params.row.requestStatus}
+          label='Age'
+          onChange={handleChange}
+        >
+          <MenuItem value='PENDING'>PENDING</MenuItem>
+          <MenuItem value='APPROVED'>APPROVED</MenuItem>
+          <MenuItem value='REJECTED'>REJECTED</MenuItem>
+        </Select>
+      );
+    },
+  },
 ];
 
 const BloodRequestPage = () => {
   const { data, isLoading } = useGetMyBloodRequestsQuery(undefined);
+  const [updateStatus] = useUpdateMyBloodRequestStatusMutation();
+
+  const handleUpdateStatus = async (id: string, status: string) => {
+    try {
+      const res = await updateStatus({ id, payload: { status } });
+      console.log(res);
+    } catch (error) {}
+  };
 
   const rows = data?.data.map((row: any) => ({
     id: row.id,
@@ -89,6 +136,7 @@ const BloodRequestPage = () => {
     bloodType: blood[row.bloodType as TBlood],
     numberOfBag: row.numberOfBag,
     requestStatus: row.requestStatus,
+    handleUpdateStatus: handleUpdateStatus,
   }));
 
   return (

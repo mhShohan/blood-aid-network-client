@@ -74,7 +74,7 @@ function CustomNoRowsOverlay() {
 }
 
 const columns = [
-  { field: 'name', headerName: 'Name', flex: 1 },
+  { field: 'name', headerName: 'Requester Name', flex: 1 },
   { field: 'bloodType', headerName: 'Blood Group', flex: 1 },
   { field: 'numberOfBag', headerName: 'Number Of Bag', flex: 1 },
   { field: 'requestStatus', headerName: 'Status', flex: 1 },
