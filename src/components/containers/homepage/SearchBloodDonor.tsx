@@ -1,10 +1,10 @@
 'use client';
 
+import SectionTitle from '@/components/UI/SectionTitle';
 import SingleDonor from '@/components/shared/SingleDonor';
 import DonorSkeleton from '@/components/shared/skeletons/DonorSkeleton';
 import { bloodGroup } from '@/constant';
 import { useGetAllDonorsQuery } from '@/store/api/donor.api';
-import { useDebounced } from '@/store/hooks';
 import { IUser } from '@/types';
 import { Button, Container, Grid, MenuItem, Stack, TextField, Typography } from '@mui/material';
 import Link from 'next/link';
@@ -28,15 +28,7 @@ const SearchBloodDonor = () => {
   return (
     <Stack py={6}>
       <Container>
-        <Typography
-          component='h2'
-          variant='h2'
-          align='center'
-          textTransform='uppercase'
-          fontWeight='700'
-        >
-          Search Blood Donors
-        </Typography>
+        <SectionTitle title='Search Blood Donor' />
 
         <Container maxWidth='md'>
           <Grid container my={2}>

@@ -1,20 +1,13 @@
 import { Box, Container, Grid, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 import aboutImage from '@/assets/about.png';
+import SectionTitle from '@/components/UI/SectionTitle';
 
 const AboutSection = () => {
   return (
     <Stack py={6} bgcolor='#77ABB7'>
       <Container>
-        <Typography
-          component='h2'
-          variant='h2'
-          align='center'
-          textTransform='uppercase'
-          fontWeight='700'
-        >
-          About Us
-        </Typography>
+        <SectionTitle title='About Us' />
         <Grid container>
           <Grid item xs={12} md={4}>
             <Box p={2}>

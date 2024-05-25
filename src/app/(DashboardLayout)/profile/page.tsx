@@ -22,13 +22,18 @@ const ProfilePage = () => {
       <Stack py={5}>
         <Grid container spacing={2}>
           <Grid item xs={12} lg={4}>
-            <Image
-              src={donor.userProfile.profilePicture || blankImage}
-              alt='Donor Image'
-              width={300}
-              height={300}
-              layout='responsive'
-            />
+            <Box maxWidth={400} maxHeight={400}>
+              <Image
+                src={donor.userProfile.profilePicture || blankImage}
+                alt='Donor Image'
+                width={300}
+                height={300}
+                style={{
+                  borderRadius: '8px',
+                  objectFit: 'cover',
+                }}
+              />
+            </Box>
           </Grid>
           <Grid item xs={12} lg={8}>
             <Stack direction='column' justifyContent='center' height='100%'>

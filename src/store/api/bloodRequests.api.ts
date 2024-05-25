@@ -18,7 +18,7 @@ const bloodRequestsApi = baseApi.injectEndpoints({
         method: "POST",
         body: payload,
       }),
-      invalidatesTags: [tagTypes.request],
+      invalidatesTags: [tagTypes.request, tagTypes.bloodRequest],
     }),
 
     getAllBloodRequest: builder.query({

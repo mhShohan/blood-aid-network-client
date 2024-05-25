@@ -2,6 +2,7 @@ import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 import heroBanner from '@/assets/hero-banner.png';
 import bloodIcon from '@/assets/blood-icon.png';
+import Link from 'next/link';
 
 const HeroSection = () => {
   return (
@@ -25,7 +26,9 @@ const HeroSection = () => {
                 Find willing blood donors and save lives, your donation can make a difference today!
               </Typography>
               <Box>
-                <Button>Search Donors</Button>
+                <Link href='/donor'>
+                  <Button>Search Donors</Button>
+                </Link>
               </Box>
             </Stack>
           </Grid>

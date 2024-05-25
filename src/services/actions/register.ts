@@ -2,6 +2,7 @@
 
 import { config } from "@/utils/config";
 import { FieldValues } from "react-hook-form";
+import { cookies } from 'next/headers'
 
 export const register = async (data: FieldValues) => {
   const res = await fetch(
@@ -17,5 +18,11 @@ export const register = async (data: FieldValues) => {
   );
 
   const result = await res.json();
+
+  const cookieStore = cookies()
+
+  if (result.success) {
+    cookieStore.set('token', result.data.token)
+  }
   return result;
 };

@@ -28,7 +28,7 @@ import { IUser } from '@/types';
 import Logo from '../UI/Logo';
 
 const navPages = ['Donor', 'All Blood Requests', 'About Us'];
-const settings = ['Dashboard', 'Logout'];
+const settings = ['Dashboard', 'Profile', 'Logout'];
 
 const Header = () => {
   const dispatch = useAppDispatch();

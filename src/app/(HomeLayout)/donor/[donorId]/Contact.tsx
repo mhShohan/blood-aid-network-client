@@ -28,8 +28,6 @@ const Contact = ({ donorId }: { donorId: string }) => {
   const [sendBloodRequest, { isLoading }] = useSendBloodRequestToDonorMutation();
   const router = useRouter();
 
-  console.log({ token });
-
   const handleBloodRequest = async (values: any) => {
     if (!token) {
       router.push('/login');
@@ -44,17 +42,18 @@ const Contact = ({ donorId }: { donorId: string }) => {
       reason: values.reason,
     };
 
+    const toastId = toast.loading('Sending Blood Request...');
     try {
       const res = await sendBloodRequest({ id: donorId, payload }).unwrap();
 
       if (res.success) {
-        toast.success('Blood Request Sent Successfully');
+        toast.success('Blood Request Sent Successfully', { id: toastId });
         return true;
       } else {
-        toast.error('Failed to request blood');
+        toast.error('Failed to request blood', { id: toastId });
       }
     } catch (error) {
-      toast.error('Failed to request blood');
+      toast.error('Failed to request blood', { id: toastId });
     }
   };
 

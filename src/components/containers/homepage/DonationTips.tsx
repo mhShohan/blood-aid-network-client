@@ -1,3 +1,4 @@
+import SectionTitle from '@/components/UI/SectionTitle';
 import { Box, Card, CardContent, Container, Grid, Typography } from '@mui/material';
 
 const tips = [
@@ -22,16 +23,7 @@ const DonationTips = () => {
   return (
     <Box py={8}>
       <Container maxWidth='lg'>
-        <Typography
-          component='h2'
-          variant='h2'
-          align='center'
-          textTransform='uppercase'
-          fontWeight='700'
-          mb={2}
-        >
-          Blood Donation Tips
-        </Typography>
+        <SectionTitle title='Donation Tips' />
         <Grid container spacing={4} justifyContent='center'>
           {tips.map((tip) => (
             <Grid key={tip.title} item xs={12} sm={6} md={4}>
@@ -83,6 +75,7 @@ const DonationTips = () => {
             </Card>
           </Grid> */}
         </Grid>
+        <br />
       </Container>
     </Box>
   );

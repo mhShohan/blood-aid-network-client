@@ -15,28 +15,39 @@ const SingleDonor = ({ donor }: { donor: IUser }) => {
             borderRadius: '8px',
             boxShadow: 10,
           }}
+          alignItems='center'
         >
-          <Box>
+          <Box maxWidth={300} maxHeight={300}>
             <Image
               src={donor?.userProfile.profilePicture || blankProfile}
               alt={donor?.name}
-              width={200}
-              height={200}
-              layout='responsive'
+              width={300}
+              height={300}
               style={{
                 borderRadius: '8px',
+                objectFit: 'cover',
               }}
             />
           </Box>
-          <Box my={1}>
-            <Typography variant='h6' sx={{ lineHeight: '1.2' }}>
-              <strong>Name: </strong> {donor.name}
+          <Box my={2} width={'100%'} textAlign='center'>
+            <Typography variant='h6' fontWeight={400} sx={{ lineHeight: '1.2' }}>
+              <Typography component='span' fontWeight={800} variant='h6'>
+                Name:{' '}
+              </Typography>{' '}
+              {donor.name}
             </Typography>
-            <Typography variant='h6' sx={{ lineHeight: '1.2' }}>
-              <strong>Blood Group: </strong> {blood[donor.bloodType as TBlood]}
+
+            <Typography variant='h6' fontWeight={400} sx={{ lineHeight: '1.2' }}>
+              <Typography component='span' fontWeight={800} variant='h6'>
+                Location:{' '}
+              </Typography>{' '}
+              {donor.location}
             </Typography>
-            <Typography variant='h6' sx={{ lineHeight: '1.2' }}>
-              <strong>Location: </strong> {donor.location}
+            <Typography variant='h6' fontWeight={400} sx={{ lineHeight: '1.2' }}>
+              <Typography component='span' fontWeight={800} variant='h6'>
+                Blood Group:{' '}
+              </Typography>{' '}
+              {blood[donor.bloodType as TBlood]}
             </Typography>
 
             <Box mt={1}>
@@ -44,6 +55,7 @@ const SingleDonor = ({ donor }: { donor: IUser }) => {
                 label={donor.availability ? 'Available' : 'Not Available'}
                 color={donor.availability ? 'success' : 'error'}
                 variant='filled'
+                sx={{ padding: '0.5rem 2rem' }}
               />
             </Box>
           </Box>

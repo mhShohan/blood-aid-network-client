@@ -26,7 +26,7 @@ const donorApi = baseApi.injectEndpoints({
         url: "/donation-request",
         method: "GET",
       }),
-      providesTags: [tagTypes.user, tagTypes.request, tagTypes.donor],
+      providesTags: [tagTypes.user, tagTypes.request, tagTypes.bloodRequest, tagTypes.donor],
     }),
 
     getDonateHistory: builder.query({

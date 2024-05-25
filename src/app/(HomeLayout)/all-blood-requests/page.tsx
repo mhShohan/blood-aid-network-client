@@ -34,7 +34,7 @@ const AllBloodRequests = () => {
   };
 
   return (
-    <Stack py={2}>
+    <Stack py={4}>
       <Container maxWidth='lg'>
         {/* filter */}
         <Container maxWidth='xs'>
@@ -121,7 +121,7 @@ const AllBloodRequests = () => {
               textTransform: 'capitalize',
             }}
           >
-            No Donors Found...
+            No Requests Found...
           </Typography>
         )}
 

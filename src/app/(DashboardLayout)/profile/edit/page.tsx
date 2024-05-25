@@ -33,7 +33,7 @@ const UpdateProfilePage = () => {
       availability: String(data.data.availability),
     },
     userProfile: {
-      bio: data.data.userProfile.bio,
+      bio: data.data.userProfile.bio || '',
       dateOfBirth: data.data.userProfile.dateOfBirth,
       lastDonationDate: data.data.userProfile.lastDonationDate,
       profilePicture: '',
@@ -50,6 +50,7 @@ const UpdateProfilePage = () => {
     );
     values.userProfile.id = data.data.userProfile.id;
     values.user.availability = values.user.availability === 'true' ? true : false;
+    values.userProfile.bio = values.userProfile.bio;
 
     try {
       const res = await updateMyProfile({ id: data.data.id, payload: values }).unwrap();

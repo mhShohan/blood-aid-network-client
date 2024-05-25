@@ -1,19 +1,11 @@
+import SectionTitle from '@/components/UI/SectionTitle';
 import { Box, Card, CardContent, Container, Grid, SxProps, Typography } from '@mui/material';
 
 const SuccessStories = ({ sx }: { sx?: SxProps }) => {
   return (
     <Box py={8} bgcolor='#77ABB7' sx={{ ...sx }}>
       <Container maxWidth='md'>
-        <Typography
-          component='h2'
-          variant='h2'
-          align='center'
-          textTransform='uppercase'
-          fontWeight='700'
-          mb={2}
-        >
-          Success Stories
-        </Typography>
+        <SectionTitle title='Success Stories' />
         <Grid container spacing={4} justifyContent='center'>
           <Grid item xs={12} sm={6}>
             <Card sx={{ bgcolor: 'transparent', boxShadow: 24, p: 2 }}>
@@ -50,6 +42,7 @@ const SuccessStories = ({ sx }: { sx?: SxProps }) => {
             </Card>
           </Grid>
         </Grid>
+        <br />
       </Container>
     </Box>
   );

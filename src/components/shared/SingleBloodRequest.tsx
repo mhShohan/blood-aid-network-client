@@ -41,24 +41,25 @@ const SingleBloodRequest = ({ request }: { request: IBloodRequest }) => {
           borderRadius: '8px',
           boxShadow: 10,
         }}
+        alignItems='center'
       >
-        <Box>
+        <Box maxWidth={300} maxHeight={300}>
           <Image
             src={request?.requester?.userProfile?.profilePicture || blankProfile}
-            alt={request.requester.name}
-            width={200}
-            height={200}
-            layout='responsive'
+            alt={request?.requester?.name}
+            width={300}
+            height={300}
             style={{
               borderRadius: '8px',
+              objectFit: 'cover',
             }}
           />
         </Box>
-        <Box my={2}>
-          <InfoBox name='Name' value={request.requester.name} />
-          <InfoBox name='Blood Group' value={blood[request.bloodType as TBlood]} />
-          <InfoBox name='Number of Bags' value={request.numberOfBag} />
-          <InfoBox name='Contact Number' value={request.phoneNumber} />
+        <Box my={2} width='100%'>
+          <InfoBox name='Name' value={request?.requester?.name} />
+          <InfoBox name='Blood Group' value={blood[request?.bloodType as TBlood]} />
+          <InfoBox name='Number of Bags' value={request?.numberOfBag} />
+          <InfoBox name='Contact Number' value={request?.phoneNumber} />
         </Box>
         <Button onClick={acceptBloodRequest}>Accept Blood Request</Button>
       </Stack>

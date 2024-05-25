@@ -13,6 +13,7 @@ interface IUser extends JwtPayload {
   email: string;
   name: string;
   username: string;
+  role: 'ADMIN' | 'USER';
 }
 
 const initialState: InitialState = {
