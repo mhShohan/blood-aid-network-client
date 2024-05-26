@@ -68,7 +68,7 @@ function CustomNoRowsOverlay() {
           </g>
         </g>
       </svg>
-      <Box sx={{ mt: 1 }}>No Blood Requests</Box>
+      <Box sx={{ mt: 1 }}>No Blood Donation History found...!!!</Box>
     </StyledGridOverlay>
   );
 }

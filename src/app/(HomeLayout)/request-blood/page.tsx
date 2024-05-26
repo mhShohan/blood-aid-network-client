@@ -6,6 +6,7 @@ import CustomSelectField from '@/components/shared/CustomSelect';
 import CustomDatePicker from '@/components/shared/CutomDatePicker';
 import { bloodGroup } from '@/constant';
 import { useCreateBloodRequestMutation } from '@/store/api/bloodRequests.api';
+import dateFormatter from '@/utils/dateFormatter';
 import storage from '@/utils/storage';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Container, Stack } from '@mui/material';
@@ -30,19 +31,23 @@ const BloodRequestPage = () => {
       toast.error('Please login to request blood');
       return;
     }
+
     values.numberOfBag = parseInt(values.numberOfBag);
+    values.dateOfDonation = dateFormatter.dateToString(values.dateOfDonation);
+
+    const toastId = toast.loading('Sending Blood Request...');
 
     try {
       const res = await createBloodRequest(values).unwrap();
 
       if (res.success) {
-        toast.success('Blood Request Sent Successfully');
+        toast.success('Blood Request Sent Successfully', { id: toastId });
         return true;
       } else {
-        toast.error('Failed to send blood request');
+        toast.error('Failed to send blood request', { id: toastId });
       }
     } catch (error) {
-      toast.error('Failed to send blood request');
+      toast.error('Failed to send blood request', { id: toastId });
     }
   };
 
@@ -78,7 +83,9 @@ const BloodRequestPage = () => {
               type='textarea'
               placeholder='Why blood is need?'
             />
-            <Button type='submit'>Send Blood Request</Button>
+            <Button type='submit' disabled={isLoading}>
+              {isLoading ? 'Sending Blood Request' : 'Send Blood Request'}
+            </Button>
           </Stack>
         </CustomForm>
       </Container>

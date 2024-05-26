@@ -1,15 +1,17 @@
-# Blood Aid Network Client
+# Blood Aid Network (Client)
 
-# Live Site Link:
+The Blood Donation website is a user-centric platform designed to facilitate blood donations by connecting donors with recipients. It includes features for searching and filtering donors, detailed donor profiles, user account management, and administrative tools for overseeing site activity and user accounts. The aim is to promote and streamline the process of blood donation, ensuring that those in need can easily find willing donors and that the donation process is secure, efficient, and user-friendly.
+
+# Live Site Link: https://blood-aid-network.vercel.app
 
 ## Features
 
 - User registration and login
 - Search for blood donors by location and blood type
-- Request blood donations from registered donors
-- User profile management
-- Donation history tracking
-- Admin dashboard for managing users and donations
+- Send blood request and View all blood requests
+- User profile management (view, edit and change password)
+- Donation history tracking and view your incoming blood requests
+- Admin dashboard for managing users and update users status and role
 - Mobile-friendly responsive design
 - Secure authentication and data encryption
 
@@ -22,3 +24,14 @@
 - React-hook-form
 - Zod
 - Sonner
+
+### Login Credentials to test
+
+- Admin
+
+  - username: admin
+  - password: pass123
+
+- User
+  - username: user
+  - password: pass123

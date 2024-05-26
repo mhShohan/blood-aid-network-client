@@ -98,7 +98,7 @@ const columns: GridColDef[] = [
   },
   {
     field: 'lastDonationDate',
-    headerName: 'ast Donation Date',
+    headerName: 'Last Donation Date',
     headerAlign: 'center',
     align: 'center',
     flex: 1,
