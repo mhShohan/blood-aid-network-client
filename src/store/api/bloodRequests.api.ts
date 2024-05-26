@@ -1,4 +1,4 @@
-import { tagTypes } from "../tagTypes";
+import { tagTypeList, tagTypes } from "../tagTypes";
 import { baseApi } from "./baseApi";
 
 const bloodRequestsApi = baseApi.injectEndpoints({
@@ -18,7 +18,7 @@ const bloodRequestsApi = baseApi.injectEndpoints({
         method: "POST",
         body: payload,
       }),
-      invalidatesTags: [tagTypes.request, tagTypes.bloodRequest],
+      invalidatesTags: [...tagTypeList],
     }),
 
     getAllBloodRequest: builder.query({

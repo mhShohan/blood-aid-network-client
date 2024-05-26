@@ -1,7 +1,7 @@
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 function stringToMonth(inputDate: string) {
-  if (!inputDate) return '';
+  if (!inputDate || inputDate === 'null') return '';
 
   const date = new Date(inputDate);
 
@@ -13,7 +13,10 @@ function stringToMonth(inputDate: string) {
 }
 
 const dateToString = (inputDate: string) => {
+  if (inputDate === 'NaN-NaN-NaN' || !inputDate) return null
+
   const date = new Date(inputDate);
+
 
   const day = date.getDate();
   const month = date.getMonth() + 1;

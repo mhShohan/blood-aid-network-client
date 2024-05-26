@@ -7,6 +7,7 @@ import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import { toast } from 'sonner';
 
 const StyledGridOverlay = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -124,10 +125,16 @@ const BloodRequestPage = () => {
   const [updateStatus] = useUpdateMyBloodRequestStatusMutation();
 
   const handleUpdateStatus = async (id: string, status: string) => {
+    const toastId = toast.loading('Updating Status...');
     try {
-      const res = await updateStatus({ id, payload: { status } });
-      console.log(res);
-    } catch (error) {}
+      const res = await updateStatus({ id, payload: { status } }).unwrap();
+
+      if (res.success) {
+        toast.success('Status updated successfully', { id: toastId });
+      }
+    } catch (error) {
+      toast.error('Failed to update...', { id: toastId });
+    }
   };
 
   const rows = data?.data.map((row: any) => ({

@@ -26,7 +26,7 @@ const registerSchema = z.object({
   bloodType: z.string().min(1, { message: 'Blood Type is required' }),
   location: z.string().min(1, { message: 'Location is required' }),
   dateOfBirth: z.date({ message: 'Provide a valid date Of Birth' }),
-  lastDonationDate: z.date({ message: 'Provide a valid  last Donation Date' }),
+  // lastDonationDate: z.date({ message: 'Provide a valid  last Donation Date' }),
 });
 
 const RegisterForm = () => {
@@ -36,7 +36,10 @@ const RegisterForm = () => {
 
   const handleLogin = async (data: any) => {
     data.dateOfBirth = dateFormatter.dateToString(data.dateOfBirth);
-    data.lastDonationDate = dateFormatter.dateToString(data.lastDonationDate);
+
+    if (data.lastDonationDate) {
+      data.lastDonationDate = dateFormatter.dateToString(data.lastDonationDate);
+    }
 
     try {
       setIsLoading(true);

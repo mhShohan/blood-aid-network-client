@@ -35,7 +35,7 @@ const UpdateProfilePage = () => {
     userProfile: {
       bio: data.data.userProfile.bio || '',
       dateOfBirth: data.data.userProfile.dateOfBirth,
-      lastDonationDate: data.data.userProfile.lastDonationDate,
+      lastDonationDate: data.data?.userProfile?.lastDonationDate || '',
       profilePicture: '',
     },
   };
@@ -48,6 +48,11 @@ const UpdateProfilePage = () => {
     values.userProfile.lastDonationDate = dateFormatter.dateToString(
       values.userProfile.lastDonationDate
     );
+
+    if (!values?.userProfile?.lastDonationDate) {
+      delete values.userProfile.lastDonationDate;
+    }
+
     values.userProfile.id = data.data.userProfile.id;
     values.user.availability = values.user.availability === 'true' ? true : false;
     values.userProfile.bio = values.userProfile.bio;

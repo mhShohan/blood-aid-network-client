@@ -180,25 +180,27 @@ const ManageUsersPage = () => {
   const [updateStatus] = useUpdateUserStatusMutation();
 
   const handleUpdateStatus = async (id: string, status: string) => {
+    const toastId = toast.loading('Updating status...');
     try {
       const res = await updateStatus({ id, payload: { status } }).unwrap();
 
       if (res.success) {
-        toast.success('Status updated successfully');
+        toast.success('Status updated successfully', { id: toastId });
       }
     } catch (error) {
-      toast.error('Failed to update status');
+      toast.error('Failed to update status', { id: toastId });
     }
   };
 
   const handleUpdateRole = async (id: string, status: string) => {
+    const toastId = toast.loading('Updating role...');
     try {
       const res = await updateRole({ id, payload: { role: status } }).unwrap();
       if (res.success) {
-        toast.success('Role updated successfully');
+        toast.success('Role updated successfully', { id: toastId });
       }
     } catch (error) {
-      toast.error('Failed to update role');
+      toast.error('Failed to update role', { id: toastId });
     }
   };
 

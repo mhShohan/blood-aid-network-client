@@ -19,6 +19,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { CircularProgress } from '@mui/material';
 
 // project imports
 import { logout } from '@/services/actions/logout';
@@ -170,71 +171,85 @@ const Header = () => {
             ))}
           </Box>
 
-          {user ? (
+          {isLoading ? (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title={user?.name}>
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  {user?.userProfile.profilePicture ? (
-                    <Avatar alt={user?.name} src={user?.userProfile.profilePicture} />
-                  ) : (
-                    <Avatar component={PersonIcon} />
-                  )}
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: '45px' }}
-                id='menu-appbar'
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+              <CircularProgress
+                color='inherit'
+                sx={{
+                  width: '30px !important',
+                  height: '30px !important',
                 }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <>
-                    {setting === 'Logout' ? (
-                      <MenuItem key={setting} onClick={handleLogout}>
-                        <Typography
-                          sx={{
-                            textDecoration: 'none',
-                            fontSize: '1.2rem',
-                            fontWeight: '500',
-                          }}
-                        >
-                          {setting}
-                        </Typography>
-                      </MenuItem>
-                    ) : (
-                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                        <Typography
-                          component={Link}
-                          href={`/${setting.toLowerCase()}`}
-                          sx={{
-                            textDecoration: 'none',
-                            fontSize: '1.2rem',
-                            fontWeight: '500',
-                          }}
-                        >
-                          {setting}
-                        </Typography>
-                      </MenuItem>
-                    )}
-                  </>
-                ))}
-              </Menu>
+              />
             </Box>
           ) : (
-            <Box sx={{ flexGrow: 0, display: 'flex' }}>
-              <LinkTypography href='/login' text='Login' />
-              <LinkTypography href='/register' text='Register' />
-            </Box>
+            <>
+              {user ? (
+                <Box sx={{ flexGrow: 0 }}>
+                  <Tooltip title={user?.name}>
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      {user?.userProfile.profilePicture ? (
+                        <Avatar alt={user?.name} src={user?.userProfile.profilePicture} />
+                      ) : (
+                        <Avatar component={PersonIcon} />
+                      )}
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    sx={{ mt: '45px' }}
+                    id='menu-appbar'
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    {settings.map((setting) => (
+                      <>
+                        {setting === 'Logout' ? (
+                          <MenuItem key={setting} onClick={handleLogout}>
+                            <Typography
+                              sx={{
+                                textDecoration: 'none',
+                                fontSize: '1.2rem',
+                                fontWeight: '500',
+                              }}
+                            >
+                              {setting}
+                            </Typography>
+                          </MenuItem>
+                        ) : (
+                          <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                            <Typography
+                              component={Link}
+                              href={`/${setting.toLowerCase()}`}
+                              sx={{
+                                textDecoration: 'none',
+                                fontSize: '1.2rem',
+                                fontWeight: '500',
+                              }}
+                            >
+                              {setting}
+                            </Typography>
+                          </MenuItem>
+                        )}
+                      </>
+                    ))}
+                  </Menu>
+                </Box>
+              ) : (
+                <Box sx={{ flexGrow: 0, display: 'flex' }}>
+                  <LinkTypography href='/login' text='Login' />
+                  <LinkTypography href='/register' text='Register' />
+                </Box>
+              )}
+            </>
           )}
         </Toolbar>
       </Container>
