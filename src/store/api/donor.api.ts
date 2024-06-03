@@ -37,6 +37,14 @@ const donorApi = baseApi.injectEndpoints({
       providesTags: [tagTypes.user, tagTypes.request, tagTypes.donor],
     }),
 
+    getMyRequests: builder.query({
+      query: () => ({
+        url: "/my-requests",
+        method: "GET",
+      }),
+      providesTags: [tagTypes.user, tagTypes.request, tagTypes.donor],
+    }),
+
     updateMyProfile: builder.mutation({
       query: ({ id, payload }) => ({
         url: "/profile/" + id,
@@ -55,6 +63,13 @@ const donorApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.user],
     }),
 
+    getSingleDonor: builder.query({
+      query: (id) => ({
+        url: `/donor-list/${id}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.donor],
+    }),
   }),
 });
 
@@ -63,6 +78,8 @@ export const {
   useGetMyProfileQuery,
   useGetMyBloodRequestsQuery,
   useGetDonateHistoryQuery,
+  useGetSingleDonorQuery,
+  useGetMyRequestsQuery,
   useUpdateMyProfileMutation,
   useChangePasswordMutation
 } = donorApi;

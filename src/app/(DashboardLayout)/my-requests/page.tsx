@@ -1,11 +1,13 @@
 'use client';
 
 import { TBlood, blood } from '@/constant';
-import { useGetDonateHistoryQuery } from '@/store/api/donor.api';
-import { Typography } from '@mui/material';
+import { useGetMyRequestsQuery } from '@/store/api/donor.api';
+import { Button, Chip, IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import { useRouter } from 'next/navigation';
 
 const StyledGridOverlay = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -68,34 +70,84 @@ function CustomNoRowsOverlay() {
           </g>
         </g>
       </svg>
-      <Box sx={{ mt: 1 }}>No Blood Donation History found...!!!</Box>
+      <Box sx={{ mt: 1 }}>You Have not create any requests...!!!</Box>
     </StyledGridOverlay>
   );
 }
 
-const columns = [
-  { field: 'name', headerName: 'Donated To', flex: 1 },
-  { field: 'bloodType', headerName: 'Blood Group', flex: 1 },
-  { field: 'numberOfBag', headerName: 'Number Of Bag', flex: 1 },
-  { field: 'requestStatus', headerName: 'Status', flex: 1 },
+const columns: GridColDef[] = [
+  { field: 'name', headerName: 'Donor Name', headerAlign: 'left', align: 'left', flex: 1 },
+  {
+    field: 'bloodType',
+    headerName: 'Blood Group',
+    headerAlign: 'center',
+    align: 'center',
+    flex: 1,
+  },
+  {
+    field: 'numberOfBag',
+    headerName: 'Number Of Bag',
+    headerAlign: 'center',
+    align: 'center',
+    flex: 1,
+  },
+  {
+    field: 'requestStatus',
+    headerName: 'Status',
+    headerAlign: 'center',
+    align: 'center',
+    flex: 1,
+    renderCell: ({ row }) => {
+      return (
+        <Chip
+          label={row.requestStatus}
+          color={row.requestStatus === 'APPROVED' ? 'primary' : 'warning'}
+          size='small'
+        />
+      );
+    },
+  },
+  {
+    field: 'DonorDetails',
+    headerName: 'Donors Contact Details',
+    headerAlign: 'center',
+    align: 'center',
+    flex: 1,
+    renderCell: ({ row }) => {
+      const viewContactDetails = () => {
+        row.router.push(`/profile/${row.donorId}`);
+      };
+
+      return (
+        <IconButton
+          size='small'
+          onClick={viewContactDetails}
+          color='primary'
+          disabled={row.requestStatus !== 'APPROVED'}
+        >
+          <VisibilityIcon />
+        </IconButton>
+      );
+    },
+  },
 ];
 
-const DashboardPage = () => {
-  const { data, isLoading } = useGetDonateHistoryQuery(undefined);
+const MyRequestsPage = () => {
+  const { data, isLoading } = useGetMyRequestsQuery(undefined);
+  const router = useRouter();
 
   const rows = data?.data.map((row: any) => ({
     id: row.id,
-    name: row.requester?.name,
-    bloodType: blood[row?.bloodType as TBlood],
-    numberOfBag: row?.numberOfBag,
-    requestStatus: row?.requestStatus,
+    donorId: row.donorId,
+    name: row?.donor?.name || '',
+    bloodType: blood[row.bloodType as TBlood],
+    numberOfBag: row.numberOfBag,
+    requestStatus: row.requestStatus,
+    router: router,
   }));
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Typography variant='h4' pb={2}>
-        My Blood Donation History!!!
-      </Typography>
       <DataGrid
         autoHeight
         hideFooter
@@ -112,4 +164,4 @@ const DashboardPage = () => {
   );
 };
 
-export default DashboardPage;
+export default MyRequestsPage;

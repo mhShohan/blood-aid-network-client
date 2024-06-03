@@ -25,7 +25,7 @@ const TeamMembers = () => {
         <Grid container spacing={4}>
           {teamMembers.map((member, index) => (
             <Grid item xs={12} md={6} key={index}>
-              <Box p={4} boxShadow={24}>
+              <Stack direction='column' alignItems='center' p={4} boxShadow={24}>
                 <Box width={200} height={200} mb={2} textAlign='center'>
                   <Image
                     src={member.image || blankImage}
@@ -41,7 +41,7 @@ const TeamMembers = () => {
                 <Typography textAlign='center' variant='body1'>
                   {member.role}
                 </Typography>
-              </Box>
+              </Stack>
             </Grid>
           ))}
         </Grid>

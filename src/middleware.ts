@@ -11,6 +11,7 @@ const commonPrivateRoutes = [
   '/profile/edit',
   '/profile/change-password',
   '/request-blood',
+  '/my-requests',
   '/blood-requests',
 ];
 
@@ -58,6 +59,7 @@ export const config = {
     '/request-blood',
     '/profile/:page*',
     '/manage-users',
-    '/blood-requests'
+    '/blood-requests',
+    '/my-requests'
   ],
 };
