@@ -1,8 +1,12 @@
 'use client';
 
 import { TBlood, blood } from '@/constant';
-import { useGetDonateHistoryQuery } from '@/store/api/donor.api';
-import { Typography } from '@mui/material';
+import {
+  useGetDonateHistoryQuery,
+  useGetMyBloodRequestsQuery,
+  useGetMyRequestsQuery,
+} from '@/store/api/donor.api';
+import { CircularProgress, Grid, Stack, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import { DataGrid } from '@mui/x-data-grid';
@@ -82,6 +86,9 @@ const columns = [
 
 const DashboardPage = () => {
   const { data, isLoading } = useGetDonateHistoryQuery(undefined);
+  const { data: sendRequests, isLoading: isSendLoading } = useGetMyRequestsQuery(undefined);
+  const { data: receiveRequests, isLoading: isReceiveLoading } =
+    useGetMyBloodRequestsQuery(undefined);
 
   const rows = data?.data.map((row: any) => ({
     id: row.id,
@@ -92,23 +99,102 @@ const DashboardPage = () => {
   }));
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Typography variant='h4' pb={2}>
-        My Blood Donation History!!!
-      </Typography>
-      <DataGrid
-        autoHeight
-        hideFooter
-        loading={isLoading}
-        hideFooterPagination
-        columns={columns}
-        rows={rows || []}
-        slots={{ noRowsOverlay: CustomNoRowsOverlay }}
-        sx={{
-          '--DataGrid-overlayHeight': '300px',
-        }}
-      />
-    </Box>
+    <Stack>
+      <Grid container mb={4} spacing={2}>
+        <Grid item xs={12} md={4}>
+          <Box
+            sx={{
+              p: 4,
+              borderRadius: 4,
+              border: '1px solid lightblue',
+              boxShadow: 24,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              minHeight: '170px',
+            }}
+          >
+            <Typography variant='h5' fontWeight={600}>
+              Total Donation
+            </Typography>
+            {isLoading ? (
+              <CircularProgress sx={{ m: 2 }} />
+            ) : (
+              <Typography variant='h2' fontWeight={700}>
+                {rows?.length || 0}
+              </Typography>
+            )}
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Box
+            sx={{
+              p: 4,
+              borderRadius: 4,
+              border: '1px solid lightblue',
+              boxShadow: 24,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              minHeight: '170px',
+            }}
+          >
+            <Typography variant='h5' fontWeight={600}>
+              Total Receive Request
+            </Typography>
+            {isReceiveLoading ? (
+              <CircularProgress sx={{ m: 2 }} />
+            ) : (
+              <Typography variant='h2' fontWeight={700}>
+                {receiveRequests?.data?.length || 0}
+              </Typography>
+            )}
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Box
+            sx={{
+              p: 4,
+              borderRadius: 4,
+              border: '1px solid lightblue',
+              boxShadow: 24,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              minHeight: '170px',
+            }}
+          >
+            <Typography variant='h5' fontWeight={600}>
+              Total Send Request
+            </Typography>
+            {isSendLoading ? (
+              <CircularProgress sx={{ m: 2 }} />
+            ) : (
+              <Typography variant='h2' fontWeight={700}>
+                {sendRequests?.data?.length || 0}
+              </Typography>
+            )}
+          </Box>
+        </Grid>
+      </Grid>
+      <Box sx={{ width: '100%' }}>
+        <Typography variant='h4' pb={2}>
+          My Blood Donation History!!!
+        </Typography>
+        <DataGrid
+          autoHeight
+          hideFooter
+          loading={isLoading}
+          hideFooterPagination
+          columns={columns}
+          rows={rows || []}
+          slots={{ noRowsOverlay: CustomNoRowsOverlay }}
+          sx={{
+            '--DataGrid-overlayHeight': '300px',
+          }}
+        />
+      </Box>
+    </Stack>
   );
 };
 
