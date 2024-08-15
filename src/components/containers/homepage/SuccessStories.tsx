@@ -3,12 +3,12 @@ import { Box, Card, CardContent, Container, Grid, SxProps, Typography } from '@m
 
 const SuccessStories = ({ sx }: { sx?: SxProps }) => {
   return (
-    <Box py={8} bgcolor='#77ABB7' sx={{ ...sx }}>
+    <Box py={8} bgcolor='rgba(119, 171, 183, 0.25)' sx={{ ...sx }}>
       <Container maxWidth='md'>
         <SectionTitle title='Success Stories' />
         <Grid container spacing={4} justifyContent='center'>
           <Grid item xs={12} sm={6}>
-            <Card sx={{ bgcolor: 'transparent', boxShadow: 24, p: 2 }}>
+            <Card sx={{ bgcolor: 'transparent', boxShadow: 24, p: 2, borderRadius: '1rem' }}>
               <CardContent>
                 <Typography
                   variant='h6'
@@ -25,7 +25,7 @@ const SuccessStories = ({ sx }: { sx?: SxProps }) => {
             </Card>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Card sx={{ bgcolor: 'transparent', boxShadow: 24, p: 2 }}>
+            <Card sx={{ bgcolor: 'transparent', boxShadow: 24, p: 2, borderRadius: '1rem' }}>
               <CardContent>
                 <Typography
                   variant='h6'

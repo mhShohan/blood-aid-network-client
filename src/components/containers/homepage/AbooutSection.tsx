@@ -5,7 +5,7 @@ import SectionTitle from '@/components/UI/SectionTitle';
 
 const AboutSection = () => {
   return (
-    <Stack py={6} bgcolor='#77ABB7'>
+    <Stack py={6} bgcolor='rgba(119, 171, 183, 0.25)'>
       <Container>
         <SectionTitle title='About Us' />
         <Grid container>

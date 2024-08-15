@@ -3,29 +3,49 @@ import { Grid, Typography, Avatar, Stack, Box, Container } from '@mui/material';
 import blankImage from '@/assets/blank-profile.png';
 import Image from 'next/image';
 import SectionTitle from '@/components/UI/SectionTitle';
+import boy from '@/assets/team/boy.png';
+import gamer from '@/assets/team/gamer.png';
+import man from '@/assets/team/man.png';
+import profile from '@/assets/team/profile.png';
 
 const TeamMembers = () => {
   const teamMembers = [
     {
       name: 'MD Mehdi Hasan',
       role: 'Founder',
-      image: null,
+      image: boy,
     },
     {
       name: 'MH Shohan',
       role: 'Developer',
-      image: null,
+      image: gamer,
+    },
+    {
+      name: 'Nasim Sheikh',
+      role: 'Manager',
+      image: man,
+    },
+    {
+      name: 'Rahat Khan',
+      role: 'Manager',
+      image: profile,
     },
   ];
 
   return (
-    <Stack py={10} bgcolor='#77ABB7'>
+    <Stack py={10} bgcolor='rgba(119, 171, 183, 0.2)'>
       <SectionTitle title='Our Team' />
-      <Container maxWidth='sm'>
+      <Container maxWidth='lg'>
         <Grid container spacing={4}>
           {teamMembers.map((member, index) => (
-            <Grid item xs={12} md={6} key={index}>
-              <Stack direction='column' alignItems='center' p={4} boxShadow={24}>
+            <Grid item xs={12} md={3} key={index}>
+              <Stack
+                direction='column'
+                alignItems='center'
+                p={4}
+                boxShadow={24}
+                borderRadius='1rem'
+              >
                 <Box width={200} height={200} mb={2} textAlign='center'>
                   <Image
                     src={member.image || blankImage}

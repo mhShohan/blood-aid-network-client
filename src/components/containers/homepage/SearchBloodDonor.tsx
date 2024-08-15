@@ -14,7 +14,7 @@ const initState = {
   bloodType: '',
   location: '',
   availability: '',
-  limit: 10,
+  limit: 6,
 };
 
 const SearchBloodDonor = () => {

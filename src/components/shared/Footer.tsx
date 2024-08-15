@@ -1,5 +1,6 @@
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Grid, Stack, Typography } from '@mui/material';
 import Logo from '../UI/Logo';
+import Link from 'next/link';
 
 const Footer = () => {
   return (
@@ -27,9 +28,35 @@ const Footer = () => {
             <Typography variant='h6' gutterBottom>
               Social
             </Typography>
-            <Typography variant='body2'>Facebook</Typography>
-            <Typography variant='body2'>Twitter</Typography>
-            <Typography variant='body2'>Instagram</Typography>
+            <Stack direction='column'>
+              <Typography
+                variant='body2'
+                component={Link}
+                href='https://www.facebook.com/mhshohan17/'
+                target='_blank'
+                sx={{ color: 'primary.light' }}
+              >
+                Facebook
+              </Typography>
+              <Typography
+                variant='body2'
+                component={Link}
+                href='https://twitter.com/mhShohan25'
+                target='_blank'
+                sx={{ color: 'primary.light' }}
+              >
+                Twitter
+              </Typography>
+              <Typography
+                variant='body2'
+                component={Link}
+                href='https://www.linkedin.com/in/mehdi-hasan-shohan/'
+                target='_blank'
+                sx={{ color: 'primary.light' }}
+              >
+                Linkedin
+              </Typography>
+            </Stack>
           </Grid>
           <Grid item xs={12} sm={6} md={3} textAlign={{ xs: 'left', sm: 'left', md: 'right' }}>
             <Typography variant='h6' gutterBottom>

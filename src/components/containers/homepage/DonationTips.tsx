@@ -1,18 +1,24 @@
 import SectionTitle from '@/components/UI/SectionTitle';
 import { Box, Card, CardContent, Container, Grid, Typography } from '@mui/material';
+import AcUnitIcon from '@mui/icons-material/AcUnit';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import AccessibilityIcon from '@mui/icons-material/Accessibility';
 
 const tips = [
   {
+    icon: AcUnitIcon,
     title: 'Stay Hydrated',
     description:
       'Drink plenty of fluids before and after donating blood to help replace the fluids lost during the donation process.',
   },
   {
+    icon: AccessibilityIcon,
     title: 'Eat Well',
     description:
       'Eat a healthy, balanced meal before donating blood to help maintain your energy levels and prevent dizziness.',
   },
   {
+    icon: AccountBalanceIcon,
     title: 'Rest After Donation',
     description:
       'Take it easy and rest for a while after donating blood to allow your body to recover.',
@@ -27,13 +33,24 @@ const DonationTips = () => {
         <Grid container spacing={4} justifyContent='center'>
           {tips.map((tip) => (
             <Grid key={tip.title} item xs={12} sm={6} md={4}>
-              <Card sx={{ minHeight: '180px', bgcolor: 'transparent', boxShadow: 24, p: 2 }}>
+              <Card
+                sx={{
+                  minHeight: '180px',
+                  bgcolor: 'transparent',
+                  boxShadow: 24,
+                  p: 2,
+                  borderRadius: '1rem',
+                }}
+              >
                 <CardContent>
+                  <Box display='flex' justifyContent='center' my={4}>
+                    <tip.icon sx={{ fontSize: '6rem' }} />
+                  </Box>
                   <Typography
-                    variant='h4'
+                    variant='h5'
                     component='h5'
-                    fontStyle='italic'
                     textAlign='center'
+                    fontWeight='600'
                     mb={1}
                     gutterBottom
                   >
