@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import TestLoginModal from './TestLoginModal';
 
 const loginSchema = z.object({
   usernameOrEmail: z.string().min(1, { message: 'Provide username or email' }),
@@ -20,6 +21,7 @@ const loginSchema = z.object({
 });
 
 const LoginForm = () => {
+  const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -52,6 +54,7 @@ const LoginForm = () => {
       px={6}
       sx={{ border: '1px solid #1A374D', borderRadius: '.6rem' }}
     >
+      <TestLoginModal open={open} setOpen={setOpen} />
       <Typography
         variant='h4'
         align='center'
@@ -64,7 +67,7 @@ const LoginForm = () => {
       </Typography>
       <CustomForm
         onSubmit={handleLogin}
-        defaultValues={{ usernameOrEmail: '', password: '' }}
+        defaultValues={{ usernameOrEmail: 'user', password: 'pass123' }}
         resolver={zodResolver(loginSchema)}
       >
         <Stack direction='column' gap={1}>
@@ -82,6 +85,9 @@ const LoginForm = () => {
             ) : (
               'Login'
             )}
+          </Button>
+          <Button variant='outlined' onClick={() => setOpen(true)}>
+            Login Credential for testing
           </Button>
         </Stack>
       </CustomForm>
